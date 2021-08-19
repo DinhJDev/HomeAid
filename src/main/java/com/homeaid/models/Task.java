@@ -1,12 +1,17 @@
 package com.homeaid.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -33,6 +38,12 @@ public class Task {
 	protected void onUpdate(){
 		this.updatedAt = new Date();
 	}
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "members_tasks",
+		joinColumns = @JoinColumn(name = "task_id"),
+		inverseJoinColumns = @JoinColumn(name = "member_id"))
+	private List<Task> tasks;
 	
 	public Task() {
 	}
@@ -71,6 +82,12 @@ public class Task {
 	}
 	public void setCompleted(Boolean completed) {
 		this.completed = completed;
+	}
+	public List<Task> getTasks() {
+		return tasks;
+	}
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

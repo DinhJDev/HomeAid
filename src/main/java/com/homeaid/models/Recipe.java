@@ -1,9 +1,14 @@
 package com.homeaid.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -26,6 +31,12 @@ public class Recipe {
 	protected void onUpdate(){
 		this.updatedAt = new Date();
 	}
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "recipes_ingredients",
+		joinColumns = @JoinColumn(name = "recipe_id"),
+		inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+	private List<Ingredient> ingredients;
 	
 	public Recipe() {
 	}
@@ -52,6 +63,13 @@ public class Recipe {
 	}
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
