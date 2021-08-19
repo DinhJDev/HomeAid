@@ -1,10 +1,87 @@
 package com.homeaid.models;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tasks")
 public class Task {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	private String title;
+	private Integer priority;
+	private Integer difficulty;
+	private String note;
+	private Boolean completed;
+	@Column(updatable=false)
+	private Date createdAt;
+	private Date updatedAt;
+	@PrePersist
+	protected void onCreate(){
+		this.createdAt = new Date();
+	}
+	@PreUpdate
+	protected void onUpdate(){
+		this.updatedAt = new Date();
+	}
+	
+	public Task() {
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Integer getPriority() {
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
+	public Integer getDifficulty() {
+		return difficulty;
+	}
+	public void setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public Boolean getCompleted() {
+		return completed;
+	}
+	public void setCompleted(Boolean completed) {
+		this.completed = completed;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 }
