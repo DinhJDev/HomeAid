@@ -60,7 +60,12 @@ public class Member {
 		inverseJoinColumns = @JoinColumn(name = "event_id")
 	)
 	private List<Event> eventsAttending;
-	
+	 @ManyToMany(fetch = FetchType.EAGER)
+	 @JoinTable(
+		     name = "members_roles", 
+		     joinColumns = @JoinColumn(name = "member_id"), 
+		     inverseJoinColumns = @JoinColumn(name = "role_id"))
+	 private List<Role> Roles;
 	
 	public Member() {
 	}
@@ -69,6 +74,12 @@ public class Member {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public List<Role> getRoles() {
+		return Roles;
+	}
+	public void setRoles(List<Role> roles) {
+		Roles = roles;
 	}
 	public String getUsername() {
 		return username;
