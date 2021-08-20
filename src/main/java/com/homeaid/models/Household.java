@@ -35,7 +35,9 @@ public class Household {
 	@OneToMany(mappedBy="household", fetch = FetchType.LAZY)
 	private List<Member> members;
 	@OneToMany(mappedBy="household", fetch = FetchType.LAZY)
-	private List<Ingredient> ingredients;
+	private List<Item> ingredients;
+	@OneToMany(mappedBy="household", fetch = FetchType.LAZY)
+	private List<Recipe> recipes;
 	
 	public Household() {
 	}
@@ -57,10 +59,10 @@ public class Household {
 	public void setMembers(List<Member> members) {
 		this.members = members;
 	}
-	public List<Ingredient> getIngredients() {
+	public List<Item> getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(List<Ingredient> ingredients) {
+	public void setIngredients(List<Item> ingredients) {
 		this.ingredients = ingredients;
 	}
 	public Date getCreatedAt() {

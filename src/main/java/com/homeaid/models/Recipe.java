@@ -6,9 +6,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -16,6 +20,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="recipes")
 public class Recipe {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String note;
@@ -33,10 +39,14 @@ public class Recipe {
 	}
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-		name = "recipes_ingredients",
+		name = "recipes_items",
 		joinColumns = @JoinColumn(name = "recipe_id"),
-		inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-	private List<Ingredient> ingredients;
+		inverseJoinColumns = @JoinColumn(name = "item_id"))
+	private List<Item> ingredients;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="household_id")
+	private Household household;
 	
 	public Recipe() {
 	}
@@ -65,10 +75,10 @@ public class Recipe {
 		this.imgUrl = imgUrl;
 	}
 	
-	public List<Ingredient> getIngredients() {
+	public List<Item> getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(List<Ingredient> ingredients) {
+	public void setIngredients(List<Item> ingredients) {
 		this.ingredients = ingredients;
 	}
 	public Date getCreatedAt() {

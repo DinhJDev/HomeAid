@@ -3,18 +3,18 @@ package com.homeaid.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.homeaid.models.Member;
 import com.homeaid.services.MemberService;
 
-@RestController
+@Controller
 public class HomeController {
 	@Autowired
 	MemberService memberService;
@@ -29,11 +29,7 @@ public class HomeController {
             return "welcomePage.jsp";
         }
         memberService.saveWithUserRole(member);
-        return "redirect:/login";
-    }
-	@GetMapping("/login")
-    public String login() {
-        return "loginPage.jsp";
+        return "redirect:/";
     }
 	@PostMapping("/login")
     public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
@@ -43,7 +39,7 @@ public class HomeController {
         if(logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
-        return "loginPage.jsp";
+        return "welcomePage.jsp";
     }
 	@GetMapping("/dashboard")
 	public String home() {
