@@ -1,5 +1,16 @@
-body {
-	background-color: #FFC850;
+body:before {
+	content:"";
+	position:fixed;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	z-index:-1;
+	background: rgb(246,211,101);
+	background: -moz-linear-gradient(120deg, rgba(246,211,101,1) 20%, rgba(253,160,133,1) 100%);
+	background: -webkit-linear-gradient(120deg, rgba(246,211,101,1) 20%, rgba(253,160,133,1) 100%);
+	background: linear-gradient(120deg, rgba(246,211,101,1) 20%, rgba(253,160,133,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f6d365",endColorstr="#fda085",GradientType=1);
 	font-family: 'Montserrat', sans-serif;
 }
 
@@ -7,7 +18,17 @@ body {
 	height: 50px;
 	width: auto;
 }
-.logo-text {
+
+.btn-primary {
+	background-color: rgb(246,211,101);
+	border: rgb(246,211,101);
+}
+.btn-primary:hover {
+	background-color: #f4c053;
+	border: #f4c053;
+}
+
+.welcome-card .logo-text {
 	position: relative;
 	top: 40px;
 	left: 380px;
@@ -30,6 +51,7 @@ body {
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	height: 60%;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 .welcome-card .row {
 	height: 100%;
@@ -69,7 +91,7 @@ body {
 }
 
 .welcome-card .subtitle {
-	margin-top: 65px;
+	margin-top: 115px;
 }
 
 .welcome-card .btn {
@@ -85,4 +107,43 @@ body {
 	height: 65px;
 	padding: 0 25px;
 	font-size: 18px;
+}
+
+.welcome-card .logo {
+		display: none;
+	}
+
+@Media screen and (max-width: 1400px) {
+	.welcome-card .logo-text {
+		position: relative;
+		top: 40px;
+		left: 300px;
+		z-index: 1;
+		height: 50px;
+		width: auto;
+	}
+}
+
+@Media screen and (max-width: 1200px) {
+	.welcome-card .logo-text {
+		position: relative;
+		top: 40px;
+		left: 200px;
+		z-index: 1;
+		height: 50px;
+		width: auto;
+	}
+
+}
+
+@Media screen and (max-width: 990px) {
+	.col.image-area {
+		display: none;
+	}
+	.welcome-card .logo {
+		display: block;
+	}
+	.welcome-card .subtitle {
+	margin-top: 65px;
+}
 }

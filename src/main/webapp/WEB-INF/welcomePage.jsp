@@ -85,7 +85,7 @@
 					</div>
 				<div class="col image-area" style="padding-right:0;">
 					<img class="logo-text" src="/images/HomeAid-Logo.png">
-					<img class="welcome-image"src="/images/welcome-flower.gif">
+					<img class="welcome-image"src="/images/welcome-living-room.jpeg">
 				</div>
 			</div>
 		</div>
