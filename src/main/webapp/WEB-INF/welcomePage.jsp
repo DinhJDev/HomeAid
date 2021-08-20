@@ -5,8 +5,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="icon" 
+	      type="image/png" 
+	      href="/images/HomeAid-Favicon.png" />
 		<meta charset="ISO-8859-1">
-		<title>Insert title here</title>
+		<title>HomeAid | Welcome</title>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
