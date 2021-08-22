@@ -27,6 +27,69 @@
 	<style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');</style>
 </head>
 <body>
-
+	<nav class="navbar">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/dashboard">
+				<img src="/images/HomeAid-Favicon.png" class="logo">
+			</a>
+			<span class="navbar-text text-white ms-auto">Welcome currentUser.name,</span>
+			<img class="icon" src="currentUser.profilePic">
+		</div>
+	</nav>
+	<div class="dashboard-card bg-light row">
+		<div class="col"
+			<h1 class="title">Dashboard</h1>
+			<p class="">Tasks Overview</p>
+			<div class="row">
+				<div class="col">
+					<div class="dashboard-btn">
+						<p>Create New Task</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="dashboard-btn">
+						<p class="title">currentUser.tasks.size()</p>
+						<p>Your tasks</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="dashboard-btn">
+						<p>Highest Priority Task</p>
+						<p>*paginates currentUser.tasks based on priority*</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="dashboard-btn">
+						<p>Easiest Task</p>
+						<p>*paginates currentUser.tasks based on difficulty*</p>
+					</div>
+				</div>
+			</div>
+			<p class="">Meal Planning</p>
+			<div class="row">
+				<div class="col">
+					<div class="dashboard-btn">
+						<p>View recipes</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="dashboard-btn">
+						<p>Ingredients</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="dashboard-btn">
+						<p>Plan a meal</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-2">
+				<p class="">Events</p>
+				<p>currentUser.events</p>
+			</div>
+	</div>
 </body>
 </html>
