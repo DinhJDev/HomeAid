@@ -1,5 +1,7 @@
 package com.homeaid.controllers;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,9 @@ public class HomeController {
         return "welcomePage.jsp";
     }
 	@GetMapping("/dashboard")
-	public String home() {
+	public String home(Principal principal, Model model) {
+		String username = principal.getName();
+		model.addAttribute("currentUser", memberService.findByUsername(username));
 		return "dashboardPage.jsp";
 	}
 }

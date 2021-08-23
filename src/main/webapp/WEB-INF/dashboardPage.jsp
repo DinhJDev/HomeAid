@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@
 			<a class="navbar-brand" href="/dashboard">
 				<img src="/images/HomeAid-Favicon.png" class="logo">
 			</a>
-			<span class="navbar-text text-white ms-auto">Welcome currentUser.name,</span>
+			<span class="navbar-text text-white ms-auto">Welcome <c:out value="${currentUser.fullName}"/>,</span>
 			<img class="icon" src="currentUser.profilePic">
 		</div>
 	</nav>
@@ -40,28 +41,28 @@
 		<div class="col"
 			<h1 class="title">Dashboard</h1>
 			<p class="">Tasks Overview</p>
-			<div class="row">
-				<div class="col">
-					<div class="dashboard-btn">
+			<div class="row mb-3">
+				<div class="col-5">
+					<div class="dashboard-btn" onclick="location.href='/task/create'" style="cursor: pointer;">
 						<p>Create New Task</p>
 					</div>
 				</div>
-				<div class="col">
-					<div class="dashboard-btn">
-						<p class="title">currentUser.tasks.size()</p>
+				<div class="col-5">
+					<div class="dashboard-btn dashboard-task-count">
+						<p class="title">${currentUser.tasks.size()}</p>
 						<p>Your tasks</p>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<div class="dashboard-btn">
+					<div class="dashboard-btn-red">
 						<p>Highest Priority Task</p>
-						<p>*paginates currentUser.tasks based on priority*</p>
+						<p></p>
 					</div>
 				</div>
 				<div class="col">
-					<div class="dashboard-btn">
+					<div class="dashboard-btn-green">
 						<p>Easiest Task</p>
 						<p>*paginates currentUser.tasks based on difficulty*</p>
 					</div>
