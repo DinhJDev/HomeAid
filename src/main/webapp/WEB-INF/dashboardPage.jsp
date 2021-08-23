@@ -42,47 +42,81 @@
 			<h1 class="title">Dashboard</h1>
 			<p class="">Tasks Overview</p>
 			<div class="row mb-3">
-				<div class="col-5">
+				<div class="col-3">
 					<div class="dashboard-btn" onclick="location.href='/task/create'" style="cursor: pointer;">
 						<p>Create New Task</p>
 					</div>
 				</div>
-				<div class="col-5">
-					<div class="dashboard-btn dashboard-task-count">
+				<div class="col-3">
+					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasklist/'" style="cursor: pointer;">
 						<p class="title">${currentUser.tasks.size()}</p>
 						<p>Your tasks</p>
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mb-3">
 				<div class="col">
 					<div class="dashboard-btn-red">
 						<p>Highest Priority Task</p>
-						<p></p>
+						<p>$highestPriorityTask.title</p>
+						<p>$highestPriorityTask.note</p>
+						<p>$highestPriorityTask.assignees</p>
+						<input type="checkbox" id="priorityCheckBox">
+						<label for="priorityCheckBox">Complete</label>
 					</div>
 				</div>
 				<div class="col">
 					<div class="dashboard-btn-green">
 						<p>Easiest Task</p>
-						<p>*paginates currentUser.tasks based on difficulty*</p>
+						<p>$easiestTask.title</p>
+						<p>$easiestTask.note</p>
+						<p>$easiestTask.assignees</p>
+						<input type="checkbox" id="easiestCheckBox">
+						<label for="easiestCheckBox">Complete</label>
 					</div>
 				</div>
 			</div>
 			<p class="">Meal Planning</p>
-			<div class="row">
-				<div class="col">
+			<div class="row mb-3">
+				<div class="col-3">
 					<div class="dashboard-btn">
 						<p>View recipes</p>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-3">
 					<div class="dashboard-btn">
 						<p>Ingredients</p>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-3">
 					<div class="dashboard-btn">
 						<p>Plan a meal</p>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-6">
+					<div class="dashboard-btn-red">
+						<p>Expiring soon</p>
+						<div class="table-responsive">
+							<table class="table">
+								<tr>
+									<th>Item</th>
+									<th>Expiration Date</th>
+								</tr>
+								<tr>
+									<td>item.name</td>
+									<td>item.expirationDate</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class=dashboard-btn>
+						<p>Recommended Meal</p>
+						<p>$recommendedRecipe.name</p>
+						<p>$recommendedRecipe.ingredients</p>
 					</div>
 				</div>
 			</div>
