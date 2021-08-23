@@ -50,7 +50,7 @@ body:before {
 	left: 50%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	
+	height: 60%;
 	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 .welcome-card .row {
@@ -113,62 +113,6 @@ body:before {
 .welcome-card .logo {
 		display: none;
 	}
-	
-.icon {
-	width: 50px;
-	height: 50px;
-}
-
-.dashboard-card {
-	border-radius: 25px;
-	overflow: hidden;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	
-	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	padding: 50px 50px 50px 50px;
-}
-
-.dashboard-card .title {
-	font-size: 20px;
-	letter-spacing: -1px;
-}
-
-.dashboard-btn {
-	border-radius: 10px;
-	padding: 10px 10px 5px 10px;
-	height: 80px;
-	border-top: 5px solid rgb(246,211,101);
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-btn-red {
-	border-radius: 10px;
-	padding: 10px 10px 5px 10px;
-	border-top: 5px solid rgba(255,120,110,255);
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-btn-green {
-	border-radius: 10px;
-	padding: 10px 10px 5px 10px;
-	border-top: 5px solid rgb(145,166,57);
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-btn p {
-	font-weight: 600;
-	margin: 0;
-	position: relative;
-	top: 35px;
-}
-
-.dashboard-task-count p {
-	top: 5px;
-}
 
 @Media screen and (max-width: 1400px) {
 	.welcome-card .logo-text {
