@@ -2,20 +2,16 @@ package com.homeaid.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.homeaid.models.Household;
-import com.homeaid.models.Item;
-import com.homeaid.models.Member;
-import com.homeaid.models.Recipe;
 import com.homeaid.repositories.HouseholdRepository;
 
 @Service
 public class HouseholdService {
+  @Autowired
 	private HouseholdRepository houseRepo;
-	public HouseholdService(HouseholdRepository houseRepo) {
-		this.houseRepo = houseRepo;
-	}
 	
 	// Create
 	public Household createHousehold(Household household) {
@@ -27,14 +23,6 @@ public class HouseholdService {
 	}
 	public Household findbyMember(String username) {
 		return houseRepo.findByMembersUsername(username);
-	}
-	// Update
-	public Household updateHousehold(Household household) {
-		return this.houseRepo.save(household);
-	}
-	// Delete
-	public void deleteHousehold(Long id) {
-		this.houseRepo.deleteById();
 	}
 	
 	public void addMember(Member member, Household household) {
@@ -68,5 +56,20 @@ public class HouseholdService {
 		List<Recipe> currentRecipes = household.getRecipes();
 		currentRecipes.remove(recipe);
 		this.houseRepo.save(household);
+	}
+	
+	// Read
+	public Household getOneHousehold(Long id) {
+		return this.houseRepo.findById(id).orElse(null);
+	}
+	
+	// Update
+	public Household updateHousehold(Household household) {
+		return this.houseRepo.save(household);
+	}
+	
+	// Delete
+	public void deleteHousehold(Long id) {
+		this.hRepo.deleteById(id);
 	}
 }

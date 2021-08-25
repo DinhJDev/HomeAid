@@ -49,4 +49,9 @@ public class HomeController {
 		model.addAttribute("currentUser", memberService.findByUsername(username));
 		return "dashboardPage.jsp";
 	}
+	
+
+	
+	
+	
 }
