@@ -5,28 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.homeaid.models.Member;
 import com.homeaid.models.Task;
-import com.homeaid.repositories.HouseholdRepository;
 import com.homeaid.repositories.TaskRepository;
 
 @Service
 public class TaskService {
 	@Autowired
-	private HouseholdRepository houseRepo;
-	
-	
-	private TaskRepository taskRepository; 
-	public TaskService(TaskRepository taskRepository) {
-		this.taskRepository = taskRepository;
-	}
+	TaskRepository taskRepository;
 	
 	
 	public List<Task> allTask(){
 		return this.taskRepository.findAll();
 	}
 	
-	public Task createAssignee(Long id) {
-		return this.taskRepository.save(id);
+	public Task createTask(Task task) {
+		return this.taskRepository.save(task);
 	}
 	
 	public Task updateTask(Long id, Task task) {
@@ -34,8 +28,17 @@ public class TaskService {
 	}
 	
 	public String removeTask(Long id) {
-		this.houseRepo.deleteById(id);
+		this.taskRepository.deleteById(id);
 		return "Selected Task" + id + "is deleted";
 	}
-	
+	public void addAssignee(Member assignee, Task task) {
+		List<Member> currentAssignees = task.getAssignees();
+		currentAssignees.add(assignee);
+		this.taskRepository.save(task);
+	}
+	public void removeAssignee(Member assignee, Task task) {
+		List<Member> currentAssignees = task.getAssignees();
+		currentAssignees.remove(assignee);
+		this.taskRepository.save(task);
+	}
 }
