@@ -63,5 +63,7 @@ public class HouseholdController {
 		
 	}
 	
+	// Join household by name 
+	
 
 }
