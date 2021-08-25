@@ -43,7 +43,7 @@ public class Task {
 		name = "members_tasks",
 		joinColumns = @JoinColumn(name = "task_id"),
 		inverseJoinColumns = @JoinColumn(name = "member_id"))
-	private List<Task> assignees;
+	private List<Member> assignees;
 	
 	public Task() {
 	}
@@ -84,10 +84,10 @@ public class Task {
 		this.completed = completed;
 	}
 	
-	public List<Task> getAssignees() {
+	public List<Member> getAssignees() {
 		return assignees;
 	}
-	public void setAssignees(List<Task> assignees) {
+	public void setAssignees(List<Member> assignees) {
 		this.assignees = assignees;
 	}
 	public Date getCreatedAt() {
