@@ -38,8 +38,17 @@
 		</div>
 	</nav>
 	<div class="dashboard-card bg-light row">
-		<div class="col"
+		<div class="col">
+			<p>${successMessage}</p>
 			<h1 class="title">Dashboard</h1>
+			<c:choose>
+				<c:when test="${currentUser.household != null}">
+					<p>Your house: ${currentUser.household.name}</p>
+				</c:when>
+				<c:otherwise>
+					<a href="/households/create" class="btn btn-secondary">Create New Household</a>
+				</c:otherwise>
+			</c:choose>
 			<p class="">Tasks Overview</p>
 			<div class="row mb-3">
 				<div class="col-3">
