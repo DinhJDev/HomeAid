@@ -12,8 +12,4 @@ public interface HouseholdRepository extends CrudRepository<Household, Long> {
 	List<Household> findAll();
 	
 	Household findByMembersUsername(String username);
-	
-	Long deleteById();
-	
-	String removeByItem(String item);
 }
