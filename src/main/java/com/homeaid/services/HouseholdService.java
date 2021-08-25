@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.homeaid.models.Household;
+import com.homeaid.models.Item;
+import com.homeaid.models.Member;
+import com.homeaid.models.Recipe;
 import com.homeaid.repositories.HouseholdRepository;
 
 @Service
@@ -70,6 +73,6 @@ public class HouseholdService {
 	
 	// Delete
 	public void deleteHousehold(Long id) {
-		this.hRepo.deleteById(id);
+		this.houseRepo.deleteById(id);
 	}
 }
