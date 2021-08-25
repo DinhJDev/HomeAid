@@ -10,32 +10,66 @@ import com.homeaid.repositories.HouseholdRepository;
 
 @Service
 public class HouseholdService {
-	@Autowired
-	private HouseholdRepository hRepo;
+  @Autowired
+	private HouseholdRepository houseRepo;
 	
-	public List<Household> allHouseholds() {
-		return this.hRepo.findAll();
+	// Create
+	public Household createHousehold(Household household) {
+		return this.houseRepo.save(household);
+	}	
+	// Read
+	public List<Household> allHouseHold(){
+		return houseRepo.findAll();
+	}
+	public Household findbyMember(String username) {
+		return houseRepo.findByMembersUsername(username);
+	}
+	
+	public void addMember(Member member, Household household) {
+		List<Member> currentMembers = household.getMembers();
+		currentMembers.add(member);
+		this.houseRepo.save(household);
+	}
+	public void removeMember(Member member, Household household) {
+		List<Member> currentMembers = household.getMembers();
+		currentMembers.remove(member);
+		this.houseRepo.save(household);
+	}
+	
+	public void addIngredient(Item ingredient, Household household) {
+		List<Item> currentIngredients = household.getIngredients();
+		currentIngredients.add(ingredient);
+		this.houseRepo.save(household);
+	}
+	public void removeIngredient(Item ingredient, Household household) {
+		List<Item> currentIngredients = household.getIngredients();
+		currentIngredients.remove(ingredient);
+		this.houseRepo.save(household);
+	}
+	
+	public void addRecipe(Recipe recipe, Household household) {
+		List<Recipe> currentRecipes = household.getRecipes();
+		currentRecipes.add(recipe);
+		this.houseRepo.save(household);
+	}
+	public void removeRecipe(Recipe recipe, Household household) {
+		List<Recipe> currentRecipes = household.getRecipes();
+		currentRecipes.remove(recipe);
+		this.houseRepo.save(household);
 	}
 	
 	// Read
 	public Household getOneHousehold(Long id) {
-		return this.hRepo.findById(id).orElse(null);
-	}
-	
-	// Create
-	public Household createHousehold(Household household) {
-		return this.hRepo.save(household);
+		return this.houseRepo.findById(id).orElse(null);
 	}
 	
 	// Update
 	public Household updateHousehold(Household household) {
-		return this.hRepo.save(household);
+		return this.houseRepo.save(household);
 	}
 	
 	// Delete
 	public void deleteHousehold(Long id) {
 		this.hRepo.deleteById(id);
 	}
-
-	
 }

@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.homeaid.models.Household;
 
 @Repository
-public interface HouseholdRepository extends CrudRepository<Household, Long>{
+public interface HouseholdRepository extends CrudRepository<Household, Long> {
 	List<Household> findAll();
-
+	
+	Household findByMembersUsername(String username);
+	
+	Long deleteById();
+	
+	String removeByItem(String item);
 }
