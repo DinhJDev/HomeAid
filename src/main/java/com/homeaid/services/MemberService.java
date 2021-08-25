@@ -3,6 +3,7 @@ package com.homeaid.services;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.homeaid.models.Household;
 import com.homeaid.models.Member;
 import com.homeaid.repositories.MemberRepository;
 import com.homeaid.repositories.RoleRepository;
@@ -28,4 +29,10 @@ public class MemberService {
 	public Member findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
+	
+	// Update
+	public Member updateMember(Member member) {
+		return this.memberRepository.save(member);
+	}
+	
 }
