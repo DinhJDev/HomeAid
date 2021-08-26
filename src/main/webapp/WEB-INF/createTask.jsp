@@ -69,11 +69,16 @@
 					<form:textarea class="form-control" path="note" rows="3" cols="30"/>
 				</div>
 				<br>
-
-				<div class="form-group">
-					<form:label path="assignees"> Assignees (choose 1 or more): </form:label>
-					<form:select class="form-control" multiple="true" path="assignees" items="${houseMembers}" itemLabel="fullName" itemValue="fullName" />
-				</div>
+				
+				<c:if test="${edit}">
+					<div class="form-group">
+						<form:label path="assignees"> Assignees (choose 1 or more): </form:label>
+						<br>
+						<form:select class="form-select" multiple="true" path="assignees" items="${houseMembers}">
+							<!-- <form:options items="${booth.categories}" itemValue="categoryName" itemLabel="categoryName"></form:options> -->
+						</form:select>
+					</div>
+				</c:if>
 				<br>
 
 				<form:input type="hidden" path="completed" value="false"/>

@@ -38,7 +38,7 @@ public class Task {
 	protected void onUpdate(){
 		this.updatedAt = new Date();
 	}
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name = "members_tasks",
 		joinColumns = @JoinColumn(name = "task_id"),

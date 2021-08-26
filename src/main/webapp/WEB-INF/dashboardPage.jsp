@@ -58,12 +58,18 @@
 			<p class="">Tasks Overview</p>
 			<div class="row mb-3">
 				<div class="col-3">
-					<div class="dashboard-btn" onclick="location.href='/tasks/create'" style="cursor: pointer;">
+					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/create'" style="cursor: pointer;">
 						<p>Create New Task</p>
 					</div>
 				</div>
 				<div class="col-3">
-					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasklist/'" style="cursor: pointer;">
+					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/all'" style="cursor: pointer;">
+						<!-- <p class="title">${currentUser.tasks.size()}</p> -->
+						<p>All Tasks</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/my'" style="cursor: pointer;">
 						<p class="title">${currentUser.tasks.size()}</p>
 						<p>Your Tasks</p>
 					</div>
