@@ -65,7 +65,7 @@
 				<div class="col-3">
 					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasklist/'" style="cursor: pointer;">
 						<p class="title">${currentUser.tasks.size()}</p>
-						<p>Your tasks</p>
+						<p>Your Tasks</p>
 					</div>
 				</div>
 			</div>
