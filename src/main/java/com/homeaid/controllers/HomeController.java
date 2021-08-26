@@ -43,10 +43,10 @@ public class HomeController {
         }
         if(logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
+            return "redirect:/";
         }
         session.invalidate();
-        return "redirect:/";
-//        return "welcomePage.jsp";
+        return "welcomePage.jsp";
     }
 	@GetMapping("/dashboard")
 	public String home(Principal principal, Model model) {

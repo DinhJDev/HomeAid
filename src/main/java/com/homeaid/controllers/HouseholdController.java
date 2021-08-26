@@ -76,7 +76,7 @@ public class HouseholdController {
 		return "joinHousehold.jsp";
 	}
 
-	@PostMapping("/join") // Now a complete object
+	@PostMapping("/join/post") // Now a complete object
 	private String joinHouseholdPost(@RequestParam("housename") String housename, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttributes) {
 		String username = principal.getName();
 		viewModel.addAttribute("currentUser", memberService.findByUsername(username));

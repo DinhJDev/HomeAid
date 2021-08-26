@@ -43,7 +43,7 @@
 	</nav>
 	<div class="dashboard-card bg-light row">
 		<div class="col">
-			<!-- <p>${successMessage}</p> -->
+			<p>${successMessage}</p>
 			<p>${failureMessage}</p>
 			<h1 class="title">Dashboard</h1>
 			<c:choose>
@@ -51,7 +51,8 @@
 					<p>Your house: ${currentUser.household.name}</p>
 				</c:when>
 				<c:otherwise>
-					<a href="/households/create" class="btn btn-secondary">Create New Household</a>
+					<a href="/households/create" class="btn btn-primary">Create New Household</a>
+					<a href="/households/join" class="btn btn-primary">Join Existing Household</a>
 				</c:otherwise>
 			</c:choose>
 			<p class="">Tasks Overview</p>

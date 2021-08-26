@@ -3,6 +3,7 @@ package com.homeaid.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +49,7 @@ public class Member {
 		joinColumns = @JoinColumn(name = "member_id"),
 		inverseJoinColumns = @JoinColumn(name = "task_id"))
 	private List<Task> tasks;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="household_id")
 	private Household household;
 	@OneToMany(mappedBy="host", fetch=FetchType.LAZY)
