@@ -52,7 +52,7 @@
 			<p class="">Tasks Overview</p>
 			<div class="row mb-3">
 				<div class="col-3">
-					<div class="dashboard-btn" onclick="location.href='/task/create'" style="cursor: pointer;">
+					<div class="dashboard-btn" onclick="location.href='/tasks/create'" style="cursor: pointer;">
 						<p>Create New Task</p>
 					</div>
 				</div>
