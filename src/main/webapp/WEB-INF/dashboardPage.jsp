@@ -37,7 +37,7 @@
 			<img class="icon" src="currentUser.profilePic">
 			<form id="logoutForm" method="POST" action="/logout">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<input type="submit" value="logout" />
+				<input type="submit" class="btn btn-primary" value="logout" />
 			</form>
 		</div>
 	</nav>

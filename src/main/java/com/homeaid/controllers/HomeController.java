@@ -24,7 +24,8 @@ public class HomeController {
 	MemberService memberService;
 	
 	@GetMapping("/")
-	public String welcomePage(@Valid @ModelAttribute("member") Member member) {
+	public String welcomePage(@Valid @ModelAttribute("member") Member member, Model model) {
+		model.addAttribute("member", new Member());
 		return "welcomePage.jsp";
 	}
 	@PostMapping("/registration")
@@ -44,7 +45,8 @@ public class HomeController {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
         session.invalidate();
-        return "welcomePage.jsp";
+        return "redirect:/";
+//        return "welcomePage.jsp";
     }
 	@GetMapping("/dashboard")
 	public String home(Principal principal, Model model) {
