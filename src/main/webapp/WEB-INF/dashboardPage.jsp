@@ -48,14 +48,23 @@
 			<h1 class="title">Dashboard</h1>
 			<c:choose>
 				<c:when test="${currentUser.household != null}">
-					<p>Your house: ${currentUser.household.name}</p>
+					<p>Household: ${currentUser.household.name}</p>
+					<p>
+						${currentUser.household.name} family members: 
+							<ul>
+								<c:forEach items="${currentUser.household.members}" var="m"> 
+									<li>${m.fullName}</li>
+								</c:forEach>
+							</ul>
+					</p>
 				</c:when>
 				<c:otherwise>
 					<a href="/households/create" class="btn btn-primary">Create New Household</a>
 					<a href="/households/join" class="btn btn-primary">Join Existing Household</a>
 				</c:otherwise>
 			</c:choose>
-			<p class="">Tasks Overview</p>
+			<hr>
+			<p class="title">Tasks Overview</p>
 			<div class="row mb-3">
 				<div class="col-3">
 					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/create'" style="cursor: pointer;">
@@ -69,7 +78,7 @@
 					</div>
 				</div>
 				<div class="col-3">
-					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/my'" style="cursor: pointer;">
+					<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/mytasks'" style="cursor: pointer;">
 						<p class="title">${currentUser.tasks.size()}</p>
 						<p>Your Tasks</p>
 					</div>
@@ -97,7 +106,8 @@
 					</div>
 				</div>
 			</div>
-			<p class="">Meal Planning</p>
+			<hr>
+			<p class="title">Meal Planning</p>
 			<div class="row mb-3">
 				<div class="col-3">
 					<div class="dashboard-btn">
@@ -143,7 +153,10 @@
 			</div>
 		</div>
 		<div class="col-2">
-				<p class="">Events</p>
+			<ul>
+				
+			</ul>
+				<p class="title">Events</p>
 				<p>currentUser.events</p>
 			</div>
 	</div>
