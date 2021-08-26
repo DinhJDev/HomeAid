@@ -25,7 +25,7 @@ public class Item {
 	private Long id;
 	private String name;
 	private Long quantity;
-	private Long size;
+	private String measurement;
 	private Boolean ingredient;
 	private Date expirationDate;
 	@Column(updatable=false)
@@ -78,11 +78,11 @@ public class Item {
 	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
-	public Long getSize() {
-		return size;
+	public String getMeasurement() {
+		return measurement;
 	}
-	public void setSize(Long size) {
-		this.size = size;
+	public void setMeasurement(String measurement) {
+		this.measurement = measurement;
 	}
 	public Date getExpirationDate() {
 		return expirationDate;
