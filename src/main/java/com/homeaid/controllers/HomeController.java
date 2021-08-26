@@ -2,6 +2,7 @@ package com.homeaid.controllers;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.homeaid.models.Member;
@@ -33,14 +35,15 @@ public class HomeController {
         memberService.saveWithUserRole(member);
         return "redirect:/";
     }
-	@PostMapping("/login")
-    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
+	@RequestMapping("/login")
+    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model, HttpSession session) {
         if(error != null) {
             model.addAttribute("errorMessage", "Invalid Credentials, Please try again.");
         }
         if(logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
+        session.invalidate();
         return "welcomePage.jsp";
     }
 	@GetMapping("/dashboard")
