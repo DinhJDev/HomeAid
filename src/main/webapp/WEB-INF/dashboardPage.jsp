@@ -87,22 +87,44 @@
 			<div class="row mb-3">
 				<div class="col">
 					<div class="dashboard-btn-red">
-						<p>Highest Priority Task</p>
-						<p>$highestPriorityTask.title</p>
-						<p>$highestPriorityTask.note</p>
-						<p>$highestPriorityTask.assignees</p>
-						<input type="checkbox" id="priorityCheckBox">
-						<label for="priorityCheckBox">Complete</label>
+						<p class="title">Highest Priority Task</p>
+						<c:choose>
+							<c:when test="${highestPriorityTask.title.equals('')}">
+								<p>Title: ${highestPriorityTask.title}</p>
+								<p>Note: ${highestPriorityTask.note}</p>
+								<p>Assigned to: ${highestPriorityTask.assignees}</p>
+								<!-- <input type="checkbox" id="priorityCheckBox"> -->
+								<form:form method="POST" action="/tasks/edit/${highestPriorityTask.id}" modelAttribute="task">
+									<form:input type="hidden" value="${highestPriorityTask.id}" path="id"></form:input>
+									<form:input type="hidden" path="completed" value="false" />
+									<button class="btn btn-primary">Complete</button>
+								</form:form>
+							</c:when>
+							<c:otherwise>
+								<p>All done!</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="col">
 					<div class="dashboard-btn-green">
-						<p>Easiest Task</p>
-						<p>$easiestTask.title</p>
-						<p>$easiestTask.note</p>
-						<p>$easiestTask.assignees</p>
-						<input type="checkbox" id="easiestCheckBox">
-						<label for="easiestCheckBox">Complete</label>
+						<p class="title">Easiest Task</p>
+						<c:choose>
+							<c:when test="${easiestTask.title.equals('')}">
+								<p>Title: ${easiestTask.title}</p>
+								<p>Note: ${easiestTask.note}</p>
+								<p>Assigned to: ${easiestTask.assignees}</p>
+								<!-- <input type="checkbox" id="priorityCheckBox"> -->
+								<form:form method="POST" action="/tasks/edit/${easiestTask.id}" modelAttribute="task">
+									<form:input type="hidden" value="${easiestTask.id}" path="id"></form:input>
+									<form:input type="hidden" path="completed" value="false" />
+									<button class="btn btn-primary">Complete</button>
+								</form:form>
+							</c:when>
+							<c:otherwise>
+								<p>All done!</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -154,7 +176,7 @@
 		</div>
 		<div class="col-2">
 			<ul>
-				
+
 			</ul>
 				<p class="title">Events</p>
 				<p>currentUser.events</p>
