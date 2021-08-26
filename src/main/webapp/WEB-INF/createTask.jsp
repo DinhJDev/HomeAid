@@ -28,33 +28,55 @@
 </head>
 <body>
 	<nav class="navbar">
-	    <div class="container-fluid">
-	        <a class="navbar-brand" href="/dashboard">
-	            <img src="/images/HomeAid-Favicon.png" class="logo">
-	        </a>
-	        <span class="navbar-text text-white ms-auto">Welcome
-	            <c:out value="${currentUser.fullName}" />,
-	        </span>
-	        <img class="icon" src="currentUser.profilePic">
-	    </div>
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/dashboard">
+				<img src="/images/HomeAid-Favicon.png" class="logo">
+			</a>
+			<span class="navbar-text text-white ms-auto">Welcome
+				<c:out value="${currentUser.fullName}" />,
+			</span>
+			<img class="icon" src="currentUser.profilePic">
+		</div>
 	</nav>
 	<div class="dashboard-card bg-light row">
 		<div class="col">
 			<h1>Create a Task</h1>
-			<form:form method="POST" action="tasks/create/new" modelAttribute="task">
-				<form:input class="form-control" path="title"/>
-				<form:select class="form-select" path="priority">
-					<form:option value="1">Low</form:option>
-					<form:option value="2">Medium</form:option>
-					<form:option value="3">High</form:option>
-				</form:select>
+			<form:form method="POST" action="/tasks/create/new" modelAttribute="task">
+				<div class="form-group">
+					<form:label path="note"> Title: </form:label>
+					<form:input class="form-control" path="title" />
+				</div>
+				<br>
+
+				<div class="form-group">
+					<form:label path="priority"> Priority: </form:label>
+					<form:select class="form-select" path="priority">
+						<form:option value="1">Low</form:option>
+						<form:option value="2">Medium</form:option>
+						<form:option value="3">High</form:option>
+					</form:select>
+				</div>
+				<br>
+				<form:label path="difficulty"> Difficulty: </form:label>
 				<form:select class="form-select" path="difficulty">
 					<form:option value="1">Easy</form:option>
 					<form:option value="2">Medium</form:option>
 					<form:option value="3">Hard</form:option>
 				</form:select>
-				<form:textarea path="note" rows="3" cols="30"/>
-				<form:input type="hidden" path="completed" value=false/>
+				<br>
+				<div class="form-group">
+					<form:label path="note"> Note: </form:label>
+					<form:textarea class="form-control" path="note" rows="3" cols="30"/>
+				</div>
+				<br>
+
+				<div class="form-group">
+					<form:label path="assignees"> Assignees (choose 1 or more): </form:label>
+					<form:select class="form-control" multiple="true" path="assignees" items="${houseMembers}" itemLabel="fullName" itemValue="fullName" />
+				</div>
+				<br>
+
+				<form:input type="hidden" path="completed" value="false"/>
 				<button class="btn btn-primary">Create</button>
 			</form:form>
 		</div>

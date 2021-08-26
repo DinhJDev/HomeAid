@@ -61,7 +61,7 @@ public class HouseholdController {
 		}
 		currMember.setHousehold(household);
 		this.memberService.updateMember(currMember);
-		this.householdService.createHousehold(household);
+//		this.householdService.createHousehold(household);
 		System.out.println(household.getMembers());
 		redirectAttributes.addFlashAttribute("successMessage", "You have successfully created your household " + household.getName());
 		return "redirect:/dashboard"; // TODO: redirect to the dashboard
