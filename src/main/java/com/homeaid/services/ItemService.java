@@ -21,7 +21,11 @@ public class ItemService {
 		return this.itemRepository.save(item);
 	}
 	
-	public Item updateItem (Long id, Item item) {
+	public Item getOneItem(Long id) {
+		return this.itemRepository.findById(id).orElse(null);
+	}
+	
+	public Item updateItem (Item item) {
 		return this.itemRepository.save(item);
 	}
 	

@@ -21,11 +21,15 @@ public class RecipeService {
 		return this.recipeRepository.save(recipe);
 	}
 	
-	public Recipe updateRecipe (Long id, Recipe recipe) {
+	public Recipe getOneRecipe(Long id) {
+		return this.recipeRepository.findById(id).orElse(null);
+	}
+	
+	public Recipe updateRecipe (Recipe recipe) {
 		return this.recipeRepository.save(recipe);
 	}
 	
-	public void Recipe(Long id) {
+	public void deleteRecipe(Long id) {
 		this.recipeRepository.deleteById(id);
 	}
 	
