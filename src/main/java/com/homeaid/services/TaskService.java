@@ -23,6 +23,11 @@ public class TaskService {
 		return this.taskRepository.save(task);
 	}
 	
+	// Read - added by mabel
+	public Task getOneTask(Long id) {
+		return this.taskRepository.findById(id).orElse(null);
+	}
+	
 	public Task updateTask(Long id, Task task) {
 		return this.taskRepository.save(task);
 	}
