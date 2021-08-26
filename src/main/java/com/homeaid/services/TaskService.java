@@ -19,6 +19,16 @@ public class TaskService {
 		return this.taskRepository.findAll();
 	}
 	
+
+	public List<Task> descendingPriorityTasks(){
+		return this.taskRepository.findAllByOrderByPriorityDesc();
+	}
+	
+	public List<Task> ascendingDifficultyTasks() {
+		return this.taskRepository.findAllByOrderByDifficultyAsc();
+	}
+	
+	
 	public Task createTask(Task task) {
 		return this.taskRepository.save(task);
 	}
@@ -46,4 +56,6 @@ public class TaskService {
 		currentAssignees.remove(assignee);
 		this.taskRepository.save(task);
 	}
+	
+	
 }

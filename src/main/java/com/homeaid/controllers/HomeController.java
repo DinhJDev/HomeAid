@@ -16,12 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.homeaid.models.Member;
+import com.homeaid.models.Task;
+import com.homeaid.services.HouseholdService;
 import com.homeaid.services.MemberService;
+import com.homeaid.services.TaskService;
 
 @Controller
 public class HomeController {
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	HouseholdService householdService;
+	@Autowired
+	TaskService taskService;
 	
 	@GetMapping("/")
 	public String welcomePage(@Valid @ModelAttribute("member") Member member, Model model) {
@@ -49,9 +56,11 @@ public class HomeController {
         return "welcomePage.jsp";
     }
 	@GetMapping("/dashboard")
-	public String home(Principal principal, Model model) {
+	public String home(@Valid @ModelAttribute("task") Task task, Principal principal, Model model) {
 		String username = principal.getName();
 		model.addAttribute("currentUser", memberService.findByUsername(username));
+		model.addAttribute("highestPriorityTask", this.taskService.descendingPriorityTasks().get(0)); // TODO assumes there's at least one
+		model.addAttribute("easiestTask", this.taskService.ascendingDifficultyTasks().get(0)); // TODO assumes there's at least one
 		return "dashboardPage.jsp";
 	}
 	
