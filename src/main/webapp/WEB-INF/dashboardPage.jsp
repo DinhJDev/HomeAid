@@ -35,11 +35,16 @@
 			</a>
 			<span class="navbar-text text-white ms-auto">Welcome <c:out value="${currentUser.fullName}"/>,</span>
 			<img class="icon" src="currentUser.profilePic">
+			<form id="logoutForm" method="POST" action="/logout">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<input type="submit" value="logout" />
+			</form>
 		</div>
 	</nav>
 	<div class="dashboard-card bg-light row">
 		<div class="col">
-			<p>${successMessage}</p>
+			<!-- <p>${successMessage}</p> -->
+			<p>${failureMessage}</p>
 			<h1 class="title">Dashboard</h1>
 			<c:choose>
 				<c:when test="${currentUser.household != null}">
