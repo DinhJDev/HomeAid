@@ -3,7 +3,6 @@ package com.homeaid.services;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.homeaid.models.Household;
 import com.homeaid.models.Member;
 import com.homeaid.repositories.MemberRepository;
 import com.homeaid.repositories.RoleRepository;

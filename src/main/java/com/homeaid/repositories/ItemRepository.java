@@ -10,7 +10,4 @@ import com.homeaid.models.Item;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
 	List<Item> findAll();
-	List<Item> findByItemsNotContains(Item item);
-	Item save(Long id, Item ingredients);
-
 }
