@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeaid.models.Item;
@@ -41,13 +43,6 @@ public class MealController {
 	@Autowired
 	ItemService itemService;
 	
-	 @InitBinder
-	    public void initBinder(WebDataBinder binder) {
-	        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-	        sdf.setLenient(true);
-	        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-	    }
-	
 	@GetMapping("ingredients/add")
 	private String createItem(Model viewModel, @ModelAttribute("item") Item item, HttpSession session, Principal principal) {
 		String username = principal.getName();
@@ -58,7 +53,8 @@ public class MealController {
 	}
 	
 	@PostMapping("ingredients/add")
-	public String addTask(@Valid @ModelAttribute("item") Item item, BindingResult result, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr) {
+	public String addTask(@Valid @ModelAttribute("item") Item item, BindingResult result, Model viewModel, HttpSession session, 
+			Principal principal, RedirectAttributes redirectAttr, @RequestParam("expirationDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
 		if (result.hasErrors()) { 
 			System.out.println("errors creating item" + result.getAllErrors());
 			String username = principal.getName();
