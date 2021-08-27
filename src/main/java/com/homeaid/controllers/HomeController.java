@@ -96,7 +96,9 @@ public class HomeController {
 		return "dashboardPage.jsp";
 	}
 	
-
+	// TODO: Make usernames unique
+	// TODO: Bind events to a house specifically so not everyone can see it (right now not secure on jsp)
+ 
 	
 	
 	
