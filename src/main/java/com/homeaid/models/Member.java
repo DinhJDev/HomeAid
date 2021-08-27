@@ -56,7 +56,7 @@ public class Member {
 	private List<Event> events;
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
-		name= "events_users",
+		name= "events_members",
 		joinColumns = @JoinColumn(name = "attendee_id"),
 		inverseJoinColumns = @JoinColumn(name = "event_id")
 	)

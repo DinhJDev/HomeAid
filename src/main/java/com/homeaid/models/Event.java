@@ -1,5 +1,7 @@
 package com.homeaid.models;
 
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,9 +35,11 @@ public class Event {
 	private String location;
 	private Boolean privacy; // TODO but for now private would be host-only
 	@DateTimeFormat(pattern = "MM-dd-yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	private Date start;
 	@DateTimeFormat(pattern = "MM-dd-yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	private Date end;
 	@Column(updatable=false)
