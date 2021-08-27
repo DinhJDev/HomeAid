@@ -1,6 +1,7 @@
 package com.homeaid.controllers;
 
 import java.security.Principal;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.homeaid.models.Event;
 import com.homeaid.models.Member;
 import com.homeaid.models.Task;
+import com.homeaid.services.EventService;
 import com.homeaid.services.HouseholdService;
 import com.homeaid.services.MemberService;
 import com.homeaid.services.TaskService;
@@ -29,6 +32,8 @@ public class HomeController {
 	HouseholdService householdService;
 	@Autowired
 	TaskService taskService;
+	@Autowired
+	EventService eventService;
 	
 	@GetMapping("/")
 	public String welcomePage(@Valid @ModelAttribute("member") Member member, Model model) {
@@ -59,8 +64,35 @@ public class HomeController {
 	public String home(@Valid @ModelAttribute("task") Task task, Principal principal, Model model) {
 		String username = principal.getName();
 		model.addAttribute("currentUser", memberService.findByUsername(username));
-		model.addAttribute("highestPriorityTask", this.taskService.descendingPriorityTasks().get(0)); // TODO assumes there's at least one
-		model.addAttribute("easiestTask", this.taskService.ascendingDifficultyTasks().get(0)); // TODO assumes there's at least one
+		
+		if (this.taskService.descendingPriorityTasks().size() > 0) {
+			model.addAttribute("highestPriorityTask", this.taskService.descendingPriorityTasks().get(0));
+		} else {
+			model.addAttribute("highestPriorityTask", new Task());
+		}
+		
+		if (this.taskService.ascendingDifficultyTasks().size() > 0) {
+			model.addAttribute("easiestTask", this.taskService.ascendingDifficultyTasks().get(0));
+		} else {
+			model.addAttribute("easiestTask", new Task());
+		}
+		
+		// Filter off old events before displaying
+		Date now = java.util.Calendar.getInstance().getTime();
+		for (Event e : this.eventService.allEventStartAsc()) {
+			if (e.getEnd().compareTo(now) < 0) {
+		         System.out.println("Found an old event");
+		         this.eventService.removeEvent(e.getId());
+		     } 			
+		}
+		
+		if (this.eventService.allEventStartAsc().size() > 0) {
+			model.addAttribute("upcomingEvent", this.eventService.allEventStartAsc().get(0)); 
+		} else {
+			model.addAttribute("upcomingEvent", new Event());
+			System.out.println(new Event().getTitle());
+		}
+		
 		return "dashboardPage.jsp";
 	}
 	

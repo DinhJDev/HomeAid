@@ -67,21 +67,34 @@
 			<p class="title">Events Overview</p>
 				<div class="row mb-3">
 					<div class="col">
-						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/create'"
-							style="cursor: pointer;">
-							<p>Upcoming Events</p>
+						<div class="dashboard-btn-green" >
+							<p class="title">Your Upcoming Events</p>
+							<c:choose>
+								<c:when test="${upcomingEvent.title != null}">
+									<p>Title: ${upcomingEvent.title}</p>
+									<p>Note: ${upcomingEvent.note}</p>
+									<!-- <input type="checkbox" id="priorityCheckBox"> -->
+									<form:form method="POST" action="/events/edit/${upcomingEvent.id}" modelAttribute="task">
+										<form:input type="hidden" value="${upcomingEvent.id}" path="id"></form:input>
+										<form:input type="hidden" path="completed" value="false" />
+									</form:form>
+								</c:when>
+								<c:otherwise>
+									<p>None upcoming!</p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<div class="col-3">
-						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/events/new'" style="cursor: pointer;">
+						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/events/create'" style="cursor: pointer;">
 							<!-- <p class="title">${currentUser.tasks.size()}</p> -->
-							<p>New Event</p>
+							<p>Create A New Event</p>
 						</div>
 					</div>
 					<div class="col-3">
-						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/all'" style="cursor: pointer;">
+						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/events/all'" style="cursor: pointer;">
 							<!-- <p class="title">${currentUser.tasks.size()}</p> -->
-							<p>All Events</p>
+							<p>All Public Events</p>
 						</div>
 					</div>
 					
@@ -112,10 +125,14 @@
 					<div class="dashboard-btn-red">
 						<p class="title">Highest Priority Task</p>
 						<c:choose>
-							<c:when test="${highestPriorityTask.title.equals('')}">
+							<c:when test="${highestPriorityTask.title != null}}">
 								<p>Title: ${highestPriorityTask.title}</p>
 								<p>Note: ${highestPriorityTask.note}</p>
-								<p>Assigned to: ${highestPriorityTask.assignees}</p>
+								<p>Assigned to: 
+									<c:forEach items="${highestPriorityTask.assignees}" var="m">
+										${m.fullName} 
+									</c:forEach>
+								</p>
 								<!-- <input type="checkbox" id="priorityCheckBox"> -->
 								<form:form method="POST" action="/tasks/edit/${highestPriorityTask.id}" modelAttribute="task">
 									<form:input type="hidden" value="${highestPriorityTask.id}" path="id"></form:input>
@@ -133,10 +150,14 @@
 					<div class="dashboard-btn-green">
 						<p class="title">Easiest Task</p>
 						<c:choose>
-							<c:when test="${easiestTask.title.equals('')}">
+							<c:when test="${easiestTask.title != null}}">
 								<p>Title: ${easiestTask.title}</p>
 								<p>Note: ${easiestTask.note}</p>
-								<p>Assigned to: ${easiestTask.assignees}</p>
+								<p>Assigned to:
+									<c:forEach items="${easiestTask.assignees}" var="m">
+										${m.fullName}
+									</c:forEach>
+								</p>
 								<!-- <input type="checkbox" id="priorityCheckBox"> -->
 								<form:form method="POST" action="/tasks/edit/${easiestTask.id}" modelAttribute="task">
 									<form:input type="hidden" value="${easiestTask.id}" path="id"></form:input>
