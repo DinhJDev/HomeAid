@@ -190,7 +190,7 @@
 					</div>
 				</div>
 				<div class="col-3">
-					<div class="dashboard-btn">
+					<div class="dashboard-btn" onclick="location.href='/meals/create'" style="cursor: pointer;">
 						<p>Plan a meal</p>
 					</div>
 				</div>

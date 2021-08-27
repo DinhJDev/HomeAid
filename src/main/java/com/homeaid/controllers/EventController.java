@@ -141,7 +141,7 @@ public class EventController {
 		String eventName = this.eventService.getOneEvent(eventId).getTitle();
 		this.eventService.removeEvent(eventId);
 		System.out.println("Deleted event");
-		redirectAttr.addAttribute("deleteEventSuccess", "Successfully deleted event " + eventName);
+		redirectAttr.addFlashAttribute("deleteEventSuccess", "Successfully deleted event " + eventName);
 		return "redirect:/dashboard";
 	}
 	

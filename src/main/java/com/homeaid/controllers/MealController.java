@@ -3,6 +3,7 @@ package com.homeaid.controllers;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.homeaid.models.Event;
 import com.homeaid.models.Item;
 import com.homeaid.models.Member;
 import com.homeaid.services.EventService;
@@ -112,6 +114,52 @@ public class MealController {
 		}
 		
 		return results;
+	}
+	
+	
+	/** Plan a Meal */
+	@GetMapping("/create")
+	private String createMealPlan(Model viewModel, @ModelAttribute("event") Event event, HttpSession session, Principal principal) {
+		String username = principal.getName();
+		viewModel.addAttribute("currentUser", memberService.findByUsername(username));
+		viewModel.addAttribute("houseMembers", this.householdService.findbyMember(username).getMembers());
+	
+		return "planMeal.jsp";
+	}
+	
+	@PostMapping("/create/new")
+	public String addMealPlan(@Valid @ModelAttribute("event") Event event, BindingResult result, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr, @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date startDate, @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date endDate) {
+		String username = principal.getName();
+		Member currUser = memberService.findByUsername(username);
+
+		if (result.hasErrors()) { 
+			System.out.println("errors creating event" + result.getAllErrors());
+			
+			viewModel.addAttribute("currentUser", memberService.findByUsername(username));
+			viewModel.addAttribute("houseMembers", this.householdService.findbyMember(username).getMembers());
+			
+			return "planMeal.jsp";
+		}
+		
+		System.out.println("Created meal");
+		
+		// Setting defaults for meals
+		event.setNote("Meal");
+		event.setEnd(event.getStart());
+		event.setPrivacy(false);
+		
+		event.setHost(currUser);
+		List<Member> attendees = new ArrayList<>();
+		attendees.addAll(currUser.getHousehold().getMembers()); // Everyone attends meals
+		event.setAttendees(attendees);
+		Event newEvent = this.eventService.createEvent(event);
+		this.eventService.getOneEvent(newEvent.getId());
+		
+		// You are automatically attending your own event
+		
+		
+		redirectAttr.addFlashAttribute("successMessage", "Created meal successfully!");
+		return "redirect:/dashboard";
 	}
 		
 
