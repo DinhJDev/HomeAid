@@ -176,13 +176,13 @@
 			<p class="title">Meal Planning</p>
 			<div class="row mb-3">
 				<div class="col-3">
-					<div class="dashboard-btn">
+					<div class="dashboard-btn" onclick="location.href='/meals/recipes'" style="cursor: pointer;">
 						<p>View recipes</p>
 					</div>
 				</div>
 				<div class="col-3">
-					<div class="dashboard-btn">
-						<p>Ingredients</p>
+					<div class="dashboard-btn" onclick="location.href='/meals/ingredients/add'" style="cursor: pointer;">
+						<p>Add Item</p>
 					</div>
 				</div>
 				<div class="col-3">
