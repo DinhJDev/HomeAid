@@ -52,6 +52,7 @@ public class MealController {
 	@PostMapping("ingredients/add")
 	public String addTask(@Valid @ModelAttribute("item") Item item, BindingResult result, Model viewModel, HttpSession session, 
 			Principal principal, RedirectAttributes redirectAttr, @RequestParam("expirationDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+		
 		String username = principal.getName();
 		Member currentMember = memberService.findByUsername(username);
 		if (result.hasErrors()) { 
@@ -63,6 +64,8 @@ public class MealController {
 		}
 		item.setHousehold(currentMember.getHousehold());
 		System.out.println("Created item");
+		
+		redirectAttr.addAttribute("addSuccess", item.getName() + " with quantity " + item.getQuantity() + " " + item.getMeasurement() + " has been added!");
 		
 		this.itemService.createItem(item);
 		return "redirect:/meals/ingredients/add";

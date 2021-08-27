@@ -70,10 +70,8 @@
 						<form:option value="ct" label="Count" />
 					</form:select>
 				</div>
-			<form:label path="expirationDate"> Expiration Date: </form:label>
-
-			
-			<form:input class="form-control" type="date" path="expirationDate"/>
+				<form:label path="expirationDate"> Expiration Date: </form:label>
+				<form:input class="form-control" type="date" path="expirationDate"/>
 				<button class="btn btn-primary">Create</button>
 			</form:form>
 		</div>

@@ -34,12 +34,10 @@ public class Event {
 	private String note;
 	private String location;
 	private Boolean privacy; // TODO but for now private would be host-only
-	@DateTimeFormat(pattern = "MM-dd-yyyy HH:mm")
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@NotNull
 	private Date start;
-	@DateTimeFormat(pattern = "MM-dd-yyyy HH:mm")
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@NotNull
 	private Date end;
 	@Column(updatable=false)

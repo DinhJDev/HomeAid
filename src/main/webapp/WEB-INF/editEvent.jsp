@@ -94,6 +94,8 @@
                             </div>
                             <button class="btn btn-primary">Save</button>
                         </form:form>
+                        <br>
+                        <a href="/events/delete/${event.id}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </body>
