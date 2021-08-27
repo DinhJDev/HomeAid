@@ -70,9 +70,10 @@
 				<div class="row mb-3">
 					<div class="col">
 						<div class="dashboard-btn-green" >
-							<p class="title">Your Upcoming Events</p>
+							<p class="title">Your Next Event</p>
+							<p>${upcomingEvent.host.household.name}</p>
 							<c:choose>
-								<c:when test="${upcomingEvent.title != null && upcomingEvent.host.household.name.equals(currentUser.household.name)}">
+								<c:when test="${upcomingEvent.title != null}">
 									<p>Title: ${upcomingEvent.title}</p>
 									<p>Note: ${upcomingEvent.note}</p>
 									<p>Date: <fmt:formatDate pattern="yyyy-MM-dd hh:mm a" value="${upcomingEvent.start}" /> - <fmt:formatDate pattern="yyyy-MM-dd hh:mm a" value="${upcomingEvent.end}" /></p>
@@ -128,7 +129,7 @@
 					<div class="dashboard-btn-red">
 						<p class="title">Highest Priority Task</p>
 						<c:choose>
-							<c:when test="${highestPriorityTask.title != null}}">
+							<c:when test="${highestPriorityTask.title != null}">
 								<p>Title: ${highestPriorityTask.title}</p>
 								<p>Note: ${highestPriorityTask.note}</p>
 								<p>Assigned to: 
@@ -153,7 +154,7 @@
 					<div class="dashboard-btn-green">
 						<p class="title">Easiest Task</p>
 						<c:choose>
-							<c:when test="${easiestTask.title != null}}">
+							<c:when test="${easiestTask.title != null}">
 								<p>Title: ${easiestTask.title}</p>
 								<p>Note: ${easiestTask.note}</p>
 								<p>Assigned to:
@@ -205,10 +206,12 @@
 									<th>Expiration Date</th>
 								</tr>
 								<tr>
-									<c:forEach items="${expiringSoon}" var="item">
-										<td>${item.name}</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /></td>
-									</c:forEach>
+									<c:if test="${expiringSoon != null}">
+										<c:forEach items="${expiringSoon}" var="item">
+											<td>${item.name}</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /></td>
+										</c:forEach>
+									</c:if>
 								</tr>
 							</table>
 						</div>

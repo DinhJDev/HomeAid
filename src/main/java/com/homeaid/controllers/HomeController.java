@@ -70,18 +70,36 @@ public class HomeController {
 	public String home(@Valid @ModelAttribute("task") Task task, Principal principal, Model model) {
 		String username = principal.getName();
 		model.addAttribute("currentUser", memberService.findByUsername(username));
+		Member currUser = memberService.findByUsername(username);
 		
-		if (this.taskService.descendingPriorityTasks().size() > 0) {
-			model.addAttribute("highestPriorityTask", this.taskService.descendingPriorityTasks().get(0));
-		} else {
+		boolean foundHighestPriorityTask = false;
+		boolean foundEasiestTask = false;
+		if (this.taskService.descendingPriorityTasks().size() > 0) { // Needs to find the highest priority task ASSIGNED to you (not just anyone)
+			for (Task t : this.taskService.descendingPriorityTasks()) {
+				if (t.getAssignees().contains(currUser)) {
+					model.addAttribute("highestPriorityTask", t);
+					foundHighestPriorityTask = true;
+					break;
+				}
+			}
+		} 
+		if (!foundHighestPriorityTask) {
 			model.addAttribute("highestPriorityTask", new Task());
 		}
 		
 		if (this.taskService.ascendingDifficultyTasks().size() > 0) {
-			model.addAttribute("easiestTask", this.taskService.ascendingDifficultyTasks().get(0));
-		} else {
-			model.addAttribute("easiestTask", new Task());
+			for (Task t : this.taskService.ascendingDifficultyTasks()) {
+				if (t.getAssignees().contains(currUser)) {
+					model.addAttribute("easiestTask", t);
+					foundEasiestTask = true;
+					break;
+				}
+			}
+		} 
+		if (!foundEasiestTask) {
+			model.addAttribute("highestPriorityTask", new Task());
 		}
+		
 		
 		// Filter off old events before displaying
 		Date now = java.util.Calendar.getInstance().getTime();
@@ -91,24 +109,49 @@ public class HomeController {
 		         this.eventService.removeEvent(e.getId());
 		     } 			
 		}
-		
-		if (this.eventService.allEventStartAscPublic().size() > 0) {
-			model.addAttribute("upcomingEvent", this.eventService.allEventStartAscPublic().get(0)); 
-		} else {
+		Event upcoming = null; 
+		if (this.eventService.allEventStartAscPublic() != null && this.eventService.allEventStartAscPublic().size() > 0) {
+			for (Event e : this.eventService.allEventStartAscPublic()) {
+				if (e.getHost().getHousehold().getId().equals(currUser.getHousehold().getId())) { // Found first event for this household
+					upcoming = e; //
+					break;
+				}
+			}
+		}
+		if (upcoming != null) {
+			model.addAttribute("upcomingEvent", upcoming);
+		}
+		else {
 			model.addAttribute("upcomingEvent", new Event());
-			System.out.println(new Event().getTitle());
 		}
 		
-		List<Item> toDisplay = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
-		List<Item> allHouseholdItems = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
-		if (allHouseholdItems.size() > 5) {
-			toDisplay = allHouseholdItems.subList(0, 4);
+		if (memberService.findByUsername(username).getHousehold() != null) {
+			List<Item> toDisplay = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
+			List<Item> allHouseholdItems = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
+			if (allHouseholdItems != null && allHouseholdItems.size() > 5) {
+				toDisplay = allHouseholdItems.subList(0, 4);
+			}
+			model.addAttribute("expiringSoon", toDisplay);
+		} else {
+			model.addAttribute("expiringSoon", new ArrayList<>());
 		}
-		model.addAttribute("expiringSoon", toDisplay);
+		
+//		searchHelper("onions,garlic");
 		
 		return "dashboardPage.jsp";
 	}
 	
+	
+//	public String searchHelper(String ingredientsList) {
+//		String url = "https://recipe-puppy.p.rapidapi.com/?i=";
+//		ingredientsList.replace(",", "%2C");
+//		System.out.println(ingredientsList);
+//		String body = Unirest.get(ingredientsList).header("x-rapidapi-host", "recipe-puppy.p.rapidapi.com").header("x-rapidapi-key", "7bb0d70e3dmshc45e7c1084a9a97p1fd0ecjsn9799e5425411").asString().getBody();
+//		
+//		System.out.println(body);
+//		return body;
+//		
+//	}
 	// TODO: Make usernames unique
 	// TODO: Bind events to a house specifically so not everyone can see it (right now not secure on jsp)
 	// TODO: add pfp
