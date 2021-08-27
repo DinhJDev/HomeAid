@@ -28,6 +28,12 @@ import com.homeaid.services.ItemService;
 import com.homeaid.services.MemberService;
 import com.homeaid.services.TaskService;
 
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
+
 @Controller
 public class HomeController {
 	@Autowired
@@ -136,27 +142,17 @@ public class HomeController {
 			model.addAttribute("expiringSoon", new ArrayList<>());
 		}
 		
-//		searchHelper("onions,garlic");
+
 		
 		return "dashboardPage.jsp";
 	}
 	
-	
-//	public String searchHelper(String ingredientsList) {
-//		String url = "https://recipe-puppy.p.rapidapi.com/?i=";
-//		ingredientsList.replace(",", "%2C");
-//		System.out.println(ingredientsList);
-//		String body = Unirest.get(ingredientsList).header("x-rapidapi-host", "recipe-puppy.p.rapidapi.com").header("x-rapidapi-key", "7bb0d70e3dmshc45e7c1084a9a97p1fd0ecjsn9799e5425411").asString().getBody();
-//		
-//		System.out.println(body);
-//		return body;
-//		
-//	}
 	// TODO: Make usernames unique
 	// TODO: Bind events to a house specifically so not everyone can see it (right now not secure on jsp)
 	// TODO: add pfp
 	// TODO: add recipe API
 	// TODO: take out session
+	// TODO: hide api key
  
 	
 }

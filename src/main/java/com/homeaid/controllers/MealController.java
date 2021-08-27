@@ -1,6 +1,7 @@
 package com.homeaid.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,12 @@ import com.homeaid.services.HouseholdService;
 import com.homeaid.services.ItemService;
 import com.homeaid.services.MemberService;
 import com.homeaid.services.TaskService;
+
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
 
 @Controller
 @RequestMapping("/meals")
@@ -70,5 +77,42 @@ public class MealController {
 		this.itemService.createItem(item);
 		return "redirect:/meals/ingredients/add";
 	}
+	
+	@GetMapping("/recipes")
+	public String recipes(Principal principal, Model viewModel) {
+		String username = principal.getName();
+		Member currentMember = memberService.findByUsername(username);
+		String items = "";
+		for (Item i : this.itemService.householdItems(currentMember.getHousehold().getId())) {
+			items += i.getName() + ",";
+		}
+		ArrayList<JSONObject> results = searchHelper(items);
+		ArrayList<String> recipeUrls = new ArrayList<>();
+		for (JSONObject o : results) {
+			recipeUrls.add("https://tasty.co/recipe/"+(String) o.get("slug"));
+		}
+		viewModel.addAttribute("items", items);
+		viewModel.addAttribute("results", recipeUrls);
+		return "recipes.jsp";
+	}
+	
+	public ArrayList<JSONObject> searchHelper(String ingredientsList) {
+		String url = "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=";
+		ingredientsList.replace(",", "%2C");
+		System.out.println(ingredientsList);
+		HttpResponse<JsonNode> request  = Unirest.get(url+ingredientsList).header("x-rapidapi-host", "tasty.p.rapidapi.com").header("x-rapidapi-key", "7bb0d70e3dmshc45e7c1084a9a97p1fd0ecjsn9799e5425411").asJson();
+		
+		JSONObject resultsObject = request.getBody().getObject();
+		
+		JSONArray search = resultsObject.getJSONArray("results");
+		
+		ArrayList<JSONObject> results = new ArrayList<JSONObject>();
+		for (int i = 0; i < search.length(); i++) {
+			results.add(search.getJSONObject(i));
+		}
+		
+		return results;
+	}
+		
 
 }
