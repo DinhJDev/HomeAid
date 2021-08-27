@@ -9,7 +9,6 @@ import com.homeaid.models.Task;
 
 @Repository
 public interface TaskRepository extends CrudRepository <Task, Long>{
-	
 	List<Task> findAll();
 	List<Task> findAllByOrderByPriorityDesc();
 	List<Task> findAllByOrderByDifficultyAsc();
