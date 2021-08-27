@@ -1,21 +1,17 @@
 package com.homeaid.controllers;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeaid.models.Item;
+import com.homeaid.models.Member;
 import com.homeaid.services.EventService;
 import com.homeaid.services.HouseholdService;
 import com.homeaid.services.ItemService;
@@ -55,14 +52,16 @@ public class MealController {
 	@PostMapping("ingredients/add")
 	public String addTask(@Valid @ModelAttribute("item") Item item, BindingResult result, Model viewModel, HttpSession session, 
 			Principal principal, RedirectAttributes redirectAttr, @RequestParam("expirationDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+		String username = principal.getName();
+		Member currentMember = memberService.findByUsername(username);
 		if (result.hasErrors()) { 
 			System.out.println("errors creating item" + result.getAllErrors());
-			String username = principal.getName();
 			viewModel.addAttribute("currentUser", memberService.findByUsername(username));
 			viewModel.addAttribute("houseMembers", this.householdService.findbyMember(username).getMembers());
 			
 			return "createItem.jsp";
 		}
+		item.setHousehold(currentMember.getHousehold());
 		System.out.println("Created item");
 		
 		this.itemService.createItem(item);

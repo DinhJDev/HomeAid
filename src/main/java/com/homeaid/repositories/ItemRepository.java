@@ -10,4 +10,5 @@ import com.homeaid.models.Item;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
 	List<Item> findAll();
+	List<Item> findByHousehold_IdOrderByExpirationDateAsc(Long houseId);
 }
