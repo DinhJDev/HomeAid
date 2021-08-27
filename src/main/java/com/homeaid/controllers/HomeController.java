@@ -86,8 +86,8 @@ public class HomeController {
 		     } 			
 		}
 		
-		if (this.eventService.allEventStartAsc().size() > 0) {
-			model.addAttribute("upcomingEvent", this.eventService.allEventStartAsc().get(0)); 
+		if (this.eventService.allEventStartAscPublic().size() > 0) {
+			model.addAttribute("upcomingEvent", this.eventService.allEventStartAscPublic().get(0)); 
 		} else {
 			model.addAttribute("upcomingEvent", new Event());
 			System.out.println(new Event().getTitle());
@@ -98,6 +98,7 @@ public class HomeController {
 	
 	// TODO: Make usernames unique
 	// TODO: Bind events to a house specifically so not everyone can see it (right now not secure on jsp)
+	// TODO: bug where any endpoint is still available
  
 	
 	

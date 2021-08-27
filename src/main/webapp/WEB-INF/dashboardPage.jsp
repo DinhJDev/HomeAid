@@ -70,7 +70,7 @@
 						<div class="dashboard-btn-green" >
 							<p class="title">Your Upcoming Events</p>
 							<c:choose>
-								<c:when test="${upcomingEvent.title != null}">
+								<c:when test="${upcomingEvent.title != null && upcomingEvent.host.household.name.equals(currentUser.household.name)}">
 									<p>Title: ${upcomingEvent.title}</p>
 									<p>Note: ${upcomingEvent.note}</p>
 									<!-- <input type="checkbox" id="priorityCheckBox"> -->
@@ -94,7 +94,7 @@
 					<div class="col-3">
 						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/events/all'" style="cursor: pointer;">
 							<!-- <p class="title">${currentUser.tasks.size()}</p> -->
-							<p>All Public Events</p>
+							<p>All Public Household Events</p>
 						</div>
 					</div>
 					
