@@ -209,13 +209,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="col">
-					<div class=dashboard-btn>
-						<p>Recommended Meal</p>
-						<p>$recommendedRecipe.name</p>
-						<p>$recommendedRecipe.ingredients</p>
-					</div>
-				</div>
 			</div>
 		</div>
 		<!-- <div class="col-2">
