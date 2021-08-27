@@ -87,7 +87,7 @@ public class HomeController {
 		Date now = java.util.Calendar.getInstance().getTime();
 		for (Event e : this.eventService.allEventStartAsc()) {
 			if (e.getEnd().compareTo(now) < 0) {
-		         System.out.println("Found an old event");
+		         System.out.println("Found an old event that ends at " + e.getEnd());
 		         this.eventService.removeEvent(e.getId());
 		     } 			
 		}
@@ -111,9 +111,9 @@ public class HomeController {
 	
 	// TODO: Make usernames unique
 	// TODO: Bind events to a house specifically so not everyone can see it (right now not secure on jsp)
-	// TODO: bug where any endpoint is still available
+	// TODO: add pfp
+	// TODO: add recipe API
+	// TODO: take out session
  
-	
-	
 	
 }

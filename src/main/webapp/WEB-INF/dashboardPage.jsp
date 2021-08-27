@@ -46,6 +46,7 @@
 		<div class="col">
 			<p>${successMessage}</p>
 			<p>${failureMessage}</p>
+			<p>${deleteEventSuccess}</p>
 			<h1 class="title">Dashboard</h1>
 			<c:choose>
 				<c:when test="${currentUser.household != null}">
@@ -74,7 +75,8 @@
 								<c:when test="${upcomingEvent.title != null && upcomingEvent.host.household.name.equals(currentUser.household.name)}">
 									<p>Title: ${upcomingEvent.title}</p>
 									<p>Note: ${upcomingEvent.note}</p>
-									<!-- <input type="checkbox" id="priorityCheckBox"> -->
+									<p>Date: <fmt:formatDate pattern="yyyy-MM-dd hh:mm a" value="${upcomingEvent.start}" /> - <fmt:formatDate pattern="yyyy-MM-dd hh:mm a" value="${upcomingEvent.end}" /></p>
+									<!-- Change this to an attend button - todo later -->
 									<form:form method="POST" action="/events/edit/${upcomingEvent.id}" modelAttribute="task">
 										<form:input type="hidden" value="${upcomingEvent.id}" path="id"></form:input>
 										<form:input type="hidden" path="completed" value="false" />

@@ -1,7 +1,6 @@
 package com.homeaid.controllers;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,13 +9,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeaid.models.Event;
 import com.homeaid.models.Member;
-import com.homeaid.models.Task;
 import com.homeaid.services.EventService;
 import com.homeaid.services.HouseholdService;
 import com.homeaid.services.MemberService;
@@ -44,14 +40,7 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
-	/* For converting date */
-	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
-	
+
 	/** Create an Event */
 	/** Main Tasks Creation - Accessible from the Dashboard */
 	@GetMapping("/create")
@@ -64,7 +53,7 @@ public class EventController {
 	}
 	
 	@PostMapping("/create/new")
-	public String addEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr) {
+	public String addEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr, @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date startDate, @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date endDate) {
 		String username = principal.getName();
 		Member currUser = memberService.findByUsername(username);
 
@@ -77,13 +66,6 @@ public class EventController {
 			return "createEvent.jsp";
 		}
 		System.out.println("Created event");
-		
-		java.text.SimpleDateFormat sdf = 
-			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-//		java.util.Date startdt = new java.util.Date();
-//		java.util.Date enddt = new java.util.Date();
-		event.setStart(event.getStart());
-		event.setEnd(event.getEnd());
 		
 		event.setHost(currUser);
 		List<Member> attendees = new ArrayList<>();
@@ -153,6 +135,16 @@ public class EventController {
 	
 		return "allEvents.jsp";
 	}
+	
+	@GetMapping("/delete/{event_id}")
+	private String deleteEvent(@PathVariable("event_id") Long eventId, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr) {
+		String eventName = this.eventService.getOneEvent(eventId).getTitle();
+		this.eventService.removeEvent(eventId);
+		System.out.println("Deleted event");
+		redirectAttr.addAttribute("deleteEventSuccess", "Successfully deleted event " + eventName);
+		return "redirect:/dashboard";
+	}
+	
 
 	// How to fix the time problem: https://stackoverflow.com/questions/6252678/converting-a-date-string-to-a-datetime-object-using-joda-time-library
 }

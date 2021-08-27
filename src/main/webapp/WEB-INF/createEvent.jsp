@@ -76,16 +76,14 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <!-- <p>Date: <input type="text" id="datepicker"></p> -->
-                                <form:label path="start"> Start Date MM-dd-yyyy HH:mm: </form:label>
-                                <form:input path="start" id="datepicker" cssClass="form-control" />
+                                <form:label path="start"> Start Date: </form:label>
+                                <form:input class="form-control" type="datetime-local" path="start" />
                             </div>
                             <br>
 
                             <div class="form-group">
-                                <!-- <p>Date: <input type="text" id="datepicker"></p> -->
-                                <form:label path="end"> End Date MM-dd-yyyy HH:mm: </form:label>
-                                <form:input path="end" id="datepicker" cssClass="form-control" />
+                            <form:label path="end"> End Date: </form:label>
+                            <form:input class="form-control" type="datetime-local" path="end" />
                             </div>
                             <br>
 
