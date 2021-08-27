@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html>
@@ -204,7 +205,7 @@
 								<tr>
 									<c:forEach items="${expiringSoon}" var="item">
 										<td>${item.name}</td>
-										<td>${item.expirationDate}</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /></td>
 									</c:forEach>
 								</tr>
 							</table>

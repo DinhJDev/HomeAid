@@ -99,7 +99,7 @@ public class HomeController {
 			System.out.println(new Event().getTitle());
 		}
 		
-		List<Item> toDisplay = new ArrayList<>();
+		List<Item> toDisplay = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
 		List<Item> allHouseholdItems = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
 		if (allHouseholdItems.size() > 5) {
 			toDisplay = allHouseholdItems.subList(0, 4);
