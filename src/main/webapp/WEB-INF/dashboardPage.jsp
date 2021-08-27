@@ -64,6 +64,29 @@
 				</c:otherwise>
 			</c:choose>
 			<hr>
+			<p class="title">Events Overview</p>
+				<div class="row mb-3">
+					<div class="col">
+						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/create'"
+							style="cursor: pointer;">
+							<p>Upcoming Events</p>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/events/new'" style="cursor: pointer;">
+							<!-- <p class="title">${currentUser.tasks.size()}</p> -->
+							<p>New Event</p>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dashboard-btn dashboard-task-count" onclick="location.href='/tasks/all'" style="cursor: pointer;">
+							<!-- <p class="title">${currentUser.tasks.size()}</p> -->
+							<p>All Events</p>
+						</div>
+					</div>
+					
+				</div>
+			<hr>
 			<p class="title">Tasks Overview</p>
 			<div class="row mb-3">
 				<div class="col-3">
@@ -174,13 +197,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-2">
+		<!-- <div class="col-2">
 			<ul>
 
 			</ul>
 				<p class="title">Events</p>
 				<p>currentUser.events</p>
-			</div>
+			</div> -->
 	</div>
 </body>
 </html>

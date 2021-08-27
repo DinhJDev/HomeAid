@@ -26,7 +26,7 @@ public class Event {
 	private String title;
 	private String note;
 	private String location;
-	private Boolean privacy;
+	private Boolean privacy; // TODO but for now private would be host-only
 	private Date start;
 	private Date end;
 	@Column(updatable=false)
