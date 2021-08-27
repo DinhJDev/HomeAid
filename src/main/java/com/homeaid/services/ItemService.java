@@ -17,6 +17,10 @@ public class ItemService {
 		return this.itemRepository.findAll();
 	}
 	
+	public List<Item> householdItems(Long id) {
+		return this.itemRepository.findByHousehold_IdOrderByExpirationDateAsc(id);
+	}
+	
 	public Item createItem (Item item) {
 		return this.itemRepository.save(item);
 	}
@@ -32,5 +36,6 @@ public class ItemService {
 	public void deleteItem(Long id) {
 		this.itemRepository.deleteById(id);
 	}
+	
 	
 }

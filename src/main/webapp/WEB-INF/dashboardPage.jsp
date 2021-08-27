@@ -202,8 +202,10 @@
 									<th>Expiration Date</th>
 								</tr>
 								<tr>
-									<td>item.name</td>
-									<td>item.expirationDate</td>
+									<c:forEach items="${expiringSoon}" var="item">
+										<td>${item.name}</td>
+										<td>${item.expirationDate}</td>
+									</c:forEach>
 								</tr>
 							</table>
 						</div>

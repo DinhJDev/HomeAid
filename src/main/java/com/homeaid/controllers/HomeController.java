@@ -1,7 +1,9 @@
 package com.homeaid.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.homeaid.models.Event;
+import com.homeaid.models.Item;
 import com.homeaid.models.Member;
 import com.homeaid.models.Task;
 import com.homeaid.services.EventService;
 import com.homeaid.services.HouseholdService;
+import com.homeaid.services.ItemService;
 import com.homeaid.services.MemberService;
 import com.homeaid.services.TaskService;
 
@@ -34,6 +38,8 @@ public class HomeController {
 	TaskService taskService;
 	@Autowired
 	EventService eventService;
+	@Autowired
+	ItemService itemService;
 	
 	@GetMapping("/")
 	public String welcomePage(@Valid @ModelAttribute("member") Member member, Model model) {
@@ -92,6 +98,13 @@ public class HomeController {
 			model.addAttribute("upcomingEvent", new Event());
 			System.out.println(new Event().getTitle());
 		}
+		
+		List<Item> toDisplay = new ArrayList<>();
+		List<Item> allHouseholdItems = this.itemService.householdItems(memberService.findByUsername(username).getHousehold().getId());
+		if (allHouseholdItems.size() > 5) {
+			toDisplay = allHouseholdItems.subList(0, 4);
+		}
+		model.addAttribute("expiringSoon", toDisplay);
 		
 		return "dashboardPage.jsp";
 	}
