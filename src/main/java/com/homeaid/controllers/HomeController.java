@@ -41,7 +41,7 @@ public class HomeController {
 	@Autowired
 	ItemService itemService;
 	
-	@GetMapping("/")
+	@GetMapping(value = {"/", "/login"})
 	public String welcomePage(@Valid @ModelAttribute("member") Member member, Model model) {
 		model.addAttribute("member", new Member());
 		return "welcomePage.jsp";
