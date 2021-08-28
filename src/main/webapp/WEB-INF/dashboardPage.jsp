@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
     
 <!DOCTYPE html>
 <html>
@@ -209,7 +210,7 @@
 									<c:forEach items="${expiringSoon}" var="item">
 										<tr>
 											<td>${item.name}</td>
-											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /></td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /> (in <fmt:formatNumber type="number" maxFractionDigits="0" value="${(item.expirationDate.getTime() - today.getTime()) / 86400000 + 1}" /> days) </td>
 										</tr>
 									</c:forEach>
 								</c:if>
