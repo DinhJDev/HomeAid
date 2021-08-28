@@ -1,6 +1,7 @@
 package com.homeaid.controllers;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +28,6 @@ import com.homeaid.services.HouseholdService;
 import com.homeaid.services.ItemService;
 import com.homeaid.services.MemberService;
 import com.homeaid.services.TaskService;
-
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.Unirest;
-import kong.unirest.json.JSONArray;
-import kong.unirest.json.JSONObject;
 
 @Controller
 public class HomeController {
@@ -143,7 +138,7 @@ public class HomeController {
 			model.addAttribute("expiringSoon", new ArrayList<>());
 		}
 		
-
+		model.addAttribute("today", new Date());
 		
 		return "dashboardPage.jsp";
 	}

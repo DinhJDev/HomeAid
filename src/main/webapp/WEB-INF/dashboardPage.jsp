@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
     
 <!DOCTYPE html>
 <html>
@@ -198,21 +199,21 @@
 			<div class="row mb-3">
 				<div class="col-6">
 					<div class="dashboard-btn-red">
-						<p>Expiring soon</p>
+						<p class="title">Expiring soon (top 5)</p>
 						<div class="table-responsive">
 							<table class="table">
 								<tr>
 									<th>Item</th>
 									<th>Expiration Date</th>
 								</tr>
-								<tr>
-									<c:if test="${expiringSoon != null}">
-										<c:forEach items="${expiringSoon}" var="item">
+								<c:if test="${expiringSoon != null}">
+									<c:forEach items="${expiringSoon}" var="item">
+										<tr>
 											<td>${item.name}</td>
-											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /></td>
-										</c:forEach>
-									</c:if>
-								</tr>
+											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /> (in <fmt:formatNumber type="number" maxFractionDigits="0" value="${(item.expirationDate.getTime() - today.getTime()) / 86400000 + 1}" /> days) </td>
+										</tr>
+									</c:forEach>
+								</c:if>
 							</table>
 						</div>
 					</div>
