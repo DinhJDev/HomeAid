@@ -24,8 +24,8 @@ public class EventService {
 		return this.eventRepository.findAllByOrderByStartAsc();
 	}
 	
-	public List<Event> allEventStartAscPublic(){
-		return this.eventRepository.findByPrivacyFalseOrderByStartAsc();
+	public List<Event> allEventStartAscPublic(Long hostId, Boolean privacy){
+		return this.eventRepository.findByHost_IdOrPrivacyOrderByStartAsc(hostId, privacy);
 	}
 	
 	
@@ -49,8 +49,11 @@ public class EventService {
 	
 	public void addAttendee(Member attendee, Event event) {
 		List<Member> currentAttendees = event.getAttendees();
-		System.out.println(currentAttendees + "current attendees");
-		currentAttendees.add(attendee);
+		System.out.println(currentAttendees + "current attendees"); 
+		// Prevent Duplicates
+		if (!currentAttendees.contains(attendee)) {
+			currentAttendees.add(attendee); 
+		}
 		this.eventRepository.save(event);
 	}
 	

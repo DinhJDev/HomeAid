@@ -61,12 +61,20 @@
                             <br>
                             
                             <!-- Make usernames unique. They can only make the event public if they're the host. -->
-                            <c:if test="${currentUser.username.equals(event.host.username)}">
-                                <div class="form-group">
-                                    <label for="modifyprivacy">Private?</label>
-                                    <input type="checkbox" id="modifyprivacy" name="modifyprivacy" class="form-check-input">
-                                </div>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${currentUser.username.equals(event.host.username)}">
+                                    <div class="form-group">
+                                        <label for="privacy">Private?</label>
+                                        <input type="checkbox" id="privacy" name="privacy" class="form-check-input">
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="form-group">
+                                        <label for="privacy">Private?</label>
+                                        <input type="checkbox" id="privacy" name="privacy" class="form-check-input" value="false" disabled>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                             
                             <br>
                             <div class="form-group">
@@ -86,12 +94,23 @@
 
                             <!-- So it doesn't keep creating new ones -->
                             <form:input type="hidden" value="${event.id}" path="id"></form:input>
+                            <form:input type="hidden" value="${event.host.id}" path="host"></form:input>
 
-                            <!-- Should be clicked when it's true and not when it's false -->
-                            <div class="form-group">
-                                <label for="going">Attending?</label>
-                                <input type="checkbox" id="going" name="going" class="form-check-input">
-                            </div>
+                            <!-- Default is the old value -->
+                            <c:choose>
+                                <c:when test="${event.attendees.contains(currentUser)}">
+                                    <div class="form-group">
+                                        <label for="going">Attending?</label>
+                                        <input type="checkbox" id="going" name="going" class="form-check-input" checked>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="form-group">
+                                        <label for="going">Attending?</label>
+                                        <input type="checkbox" id="going" name="going" class="form-check-input">
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                             <button class="btn btn-primary">Save</button>
                         </form:form>
                         <br>

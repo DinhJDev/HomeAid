@@ -76,8 +76,8 @@
                                 <form:label path="assignees"> Assignees (choose 1 or more): </form:label>
                                 <br>
                                 <form:select class="form-select" multiple="true" path="assignees"
-                                    items="${houseMembers}">
-                                    
+                                    items="${houseMembers}" >
+
                                     <!-- <form:options items="${booth.categories}" itemValue="categoryName" itemLabel="categoryName"></form:options> -->
                                 </form:select>
                             </div>

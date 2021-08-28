@@ -8,7 +8,16 @@
             <head>
                 <link rel="icon" type="image/png" href="/images/HomeAid-Favicon.png" />
                 <meta charset="ISO-8859-1">
-                <title>HomeAid | All Tasks</title>
+                <title>HomeAid | Plan Meal</title>
+                <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                <link rel="stylesheet" href="/resources/demos/style.css">
+                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                <script>
+                    $(function () {
+                        $("#datepicker").datepicker();
+                    });
+                </script>
                 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
                     integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
                     crossorigin="anonymous">
@@ -41,14 +50,40 @@
                     </div>
                 </nav>
                 <div class="dashboard-card bg-light row">
-                    <h1>All Tasks - ${allTasks.size() - 1}</h1>
                     <div class="col">
-                        <ul>
-                        <c:forEach items="${allTasks}" var="t">
-                            <!-- Can add an option to view later -->
-                            <li><a href="/tasks/edit/${t.id}">${t.title}</a></li>
-                        </c:forEach>
-                        </ul>
+                        <h1>Plan a Meal</h1>
+                        <form:form method="POST" action="/meals/create/new" modelAttribute="event">
+                            <div class="form-group">
+                                <form:label path="title"> Meal Title: </form:label>
+                                <form:input class="form-control" path="title" />
+                            </div>
+                            <br>
+
+                            <div class="form-group">
+                                <form:label path="location"> Location: </form:label>
+                                <form:input class="form-control" path="location" />
+                            </div>
+                            <br>
+
+                            <div class="form-group">
+                                <form:label path="note"> Meal prep info: </form:label>
+                                <form:textarea class="form-control" path="note" rows="3" cols="30" />
+                            </div>
+                            <br>
+
+                            <div class="form-group">
+                                <form:label path="start"> Start Date: </form:label>
+                                <form:input class="form-control" type="datetime-local" path="start" />
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <form:label path="end"> End Date: </form:label>
+                                <form:input class="form-control" type="datetime-local" path="end" />
+                            </div>
+                            <br>
+
+                            <button class="btn btn-primary">Plan</button>
+                        </form:form>
                     </div>
                 </div>
             </body>

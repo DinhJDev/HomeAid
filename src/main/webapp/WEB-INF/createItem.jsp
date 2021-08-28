@@ -50,6 +50,7 @@
 	<div class="dashboard-card bg-light row">
 		<div class="col">
 			<h1>Add an Ingredient</h1>
+			<p>${addSuccess}</p>
 			<form:form method="POST" action="/meals/ingredients/add" modelAttribute="item">
 				<div class="form-group">
 					<form:label path="name"> Name: </form:label>
