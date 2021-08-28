@@ -12,5 +12,5 @@ import com.homeaid.models.Item;
 public interface EventRepository extends CrudRepository <Event, Long>{
 	List<Event> findAll();
 	List<Event> findAllByOrderByStartAsc();
-	List<Event> findByPrivacyFalseOrderByStartAsc();
+	List<Event> findByHost_IdOrPrivacyOrderByStartAsc(Long hostId, boolean privacy);
 }

@@ -72,7 +72,7 @@ public class EventController {
 		attendees.add(currUser);
 		event.setAttendees(attendees);
 		Event newEvent = this.eventService.createEvent(event);
-		this.eventService.getOneEvent(newEvent.getId());
+		System.out.println("right after creating event how many attendees?: " + this.eventService.getOneEvent(newEvent.getId()).getAttendees());
 		
 		// You are automatically attending your own event
 		
@@ -95,7 +95,7 @@ public class EventController {
 	}
 	
 	@PostMapping("/edit/{event_id}")
-	private String editTaskPost(@RequestParam("going") boolean going, @RequestParam("modifyprivacy") boolean modifyprivacy, @PathVariable("event_id") Long eventId, @ModelAttribute("event") Event event, BindingResult result, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr) {
+	private String editTaskPost(@RequestParam(value="going", required=false) Boolean going, @PathVariable("event_id") Long eventId, @ModelAttribute("event") Event event, BindingResult result, Model viewModel, HttpSession session, Principal principal, RedirectAttributes redirectAttr) {
 		// Make sure it won't keep creating new tasks
 		String username = principal.getName();
 		Member currMember = memberService.findByUsername(username);
@@ -107,22 +107,29 @@ public class EventController {
 			return "editEvent.jsp";
 		}
 		
-		java.text.SimpleDateFormat sdf = 
-			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-//		java.util.Date startdt = new java.util.Date();
-//		java.util.Date enddt = new java.util.Date();
+		// TODO: Make sure host is preserved upon edit
+		
+		// If privacy is not checked/sent that means false.
+		if (event.getPrivacy() == null) {
+			event.setPrivacy(false);
+		}
+		
+		// Set event times
 		event.setStart(event.getStart());
 		event.setEnd(event.getEnd());
-		if (currMember.getUsername().equals(event.getHost().getUsername())) {
-			event.setPrivacy(modifyprivacy);
-		}
-			
-		if (going) {
+		event.setAttendees(this.eventService.getOneEvent(eventId).getAttendees()); // Otherwise this will be null.
+		
+		this.eventService.updateEvent(eventId, event);
+		
+		// Modify attending	
+		System.out.println("this is going boolean value: " + going + " and the attendees list right now: " + event.getAttendees());
+		if (going != null) {
 			this.eventService.addAttendee(currMember, this.eventService.getOneEvent(eventId));
 		} else {
+			System.out.println("hello");
 			this.eventService.removeAttendee(currMember, this.eventService.getOneEvent(eventId));
 		}
-		this.eventService.updateEvent(eventId, event);
+		System.out.println("this is going boolean value: " + going + " and the attendees list after: " + event.getAttendees());
 		return "redirect:/dashboard";
 		
 	}
@@ -131,7 +138,7 @@ public class EventController {
 	private String showAllEvents(Model viewModel, HttpSession session, Principal principal) {
 		String username = principal.getName();
 		viewModel.addAttribute("currentUser", memberService.findByUsername(username));
-		viewModel.addAttribute("allEvents", eventService.allEventStartAscPublic());
+		viewModel.addAttribute("allEvents", eventService.allEventStartAscPublic(memberService.findByUsername(username).getId(), false));
 	
 		return "allEvents.jsp";
 	}

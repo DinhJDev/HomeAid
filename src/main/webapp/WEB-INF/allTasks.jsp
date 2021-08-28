@@ -41,7 +41,7 @@
                     </div>
                 </nav>
                 <div class="dashboard-card bg-light row">
-                    <h1>All Tasks</h1>
+                    <h1>All Tasks - ${allTasks.size() - 1}</h1>
                     <div class="col">
                         <ul>
                         <c:forEach items="${allTasks}" var="t">

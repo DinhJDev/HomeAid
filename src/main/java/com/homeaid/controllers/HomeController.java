@@ -116,9 +116,10 @@ public class HomeController {
 		     } 			
 		}
 		Event upcoming = null; 
-		if (this.eventService.allEventStartAscPublic() != null && this.eventService.allEventStartAscPublic().size() > 0) {
-			for (Event e : this.eventService.allEventStartAscPublic()) {
-				if (e.getHost().getHousehold().getId().equals(currUser.getHousehold().getId())) { // Found first event for this household
+		if (this.eventService.allEventStartAscPublic(currUser.getId(), false) != null && this.eventService.allEventStartAscPublic(currUser.getId(), false).size() > 0) {
+			for (Event e : this.eventService.allEventStartAscPublic(currUser.getId(), false)) {
+				if (currUser.getHousehold() != null && e.getHost().getHousehold().getId().equals(currUser.getHousehold().getId())
+						&& e.getAttendees().contains(currUser)) { // Found first event for this household
 					upcoming = e; //
 					break;
 				}
@@ -153,6 +154,13 @@ public class HomeController {
 	// TODO: add recipe API
 	// TODO: take out session
 	// TODO: hide api key
+	// Recurring tasks
+	// Make tasks household centric or at least have a creator
+	// Deploy
+	// Modify privacy & only modify privacy if you're the host
+	// Make private boolean checked to begin with if it was already priv
+	
+	// able to delete stuff from pantry
  
 	
 }

@@ -144,9 +144,10 @@ public class MealController {
 		System.out.println("Created meal");
 		
 		// Setting defaults for meals
-		event.setNote("Meal");
-		event.setEnd(event.getStart());
+		event.setTitle("Meal: " + event.getTitle());
+//		event.setEnd(event.getStart());
 		event.setPrivacy(false);
+		System.out.println("helloooooo" + event.getPrivacy());
 		
 		event.setHost(currUser);
 		List<Member> attendees = new ArrayList<>();

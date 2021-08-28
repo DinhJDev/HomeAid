@@ -52,7 +52,7 @@
                 <div class="dashboard-card bg-light row">
                     <div class="col">
                         <h1>Plan a Meal</h1>
-                        <form:form method="POST" action="/events/create/new" modelAttribute="event">
+                        <form:form method="POST" action="/meals/create/new" modelAttribute="event">
                             <div class="form-group">
                                 <form:label path="title"> Meal Title: </form:label>
                                 <form:input class="form-control" path="title" />

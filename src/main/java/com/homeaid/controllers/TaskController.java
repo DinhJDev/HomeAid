@@ -50,7 +50,7 @@ public class TaskController {
 	private String showAllTasks(Model viewModel, HttpSession session, Principal principal) {
 		String username = principal.getName();
 		viewModel.addAttribute("currentUser", memberService.findByUsername(username));
-//		List<Task> tasksList = new ArrayList<>();
+		List<Task> tasksList = new ArrayList<>();
 //		for (Member m: this.householdService.findbyMember(username).getMembers()) {
 //			System.out.println("member" + m.getFullName());
 //			tasksList.addAll(m.getTasks());
