@@ -41,6 +41,7 @@
 	<div class="dashboard-card bg-light row">
 		<div class="col">
 			<h1>Create a Task</h1>
+			<p>Task must be created and then assigned later.</p>
 			<form:form method="POST" action="/tasks/create/new" modelAttribute="task">
 				<div class="form-group">
 					<form:label path="note"> Title: </form:label>
