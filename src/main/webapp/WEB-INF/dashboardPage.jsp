@@ -198,21 +198,21 @@
 			<div class="row mb-3">
 				<div class="col-6">
 					<div class="dashboard-btn-red">
-						<p>Expiring soon</p>
+						<p class="title">Expiring soon (top 5)</p>
 						<div class="table-responsive">
 							<table class="table">
 								<tr>
 									<th>Item</th>
 									<th>Expiration Date</th>
 								</tr>
-								<tr>
-									<c:if test="${expiringSoon != null}">
-										<c:forEach items="${expiringSoon}" var="item">
+								<c:if test="${expiringSoon != null}">
+									<c:forEach items="${expiringSoon}" var="item">
+										<tr>
 											<td>${item.name}</td>
 											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.expirationDate}" /></td>
-										</c:forEach>
-									</c:if>
-								</tr>
+										</tr>
+									</c:forEach>
+								</c:if>
 							</table>
 						</div>
 					</div>
